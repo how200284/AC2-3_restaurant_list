@@ -10,7 +10,7 @@ app.set('view engine', 'handlebars')
 
 // set router
 app.get('/', (req, res) => {
-  res.send('This is homepage')
+  res.render('index')
 })
 
 // listen on and start the Express server
