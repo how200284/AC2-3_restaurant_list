@@ -8,6 +8,9 @@ const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs( {defaultLayout: 'main'} ))
 app.set('view engine', 'handlebars')
 
+// set static files
+app.use(express.static('public'))
+
 // require restaurant.json
 const restaurantList = require('./restaurant.json')
 
