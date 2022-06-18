@@ -12,12 +12,18 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 // require restaurant.json
-const restaurantList = require('./restaurant.json')
+const restaurantList = require('./restaurant.json').results
 
 // set router
   // homepage
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  res.render('index', { restaurants: restaurantList })
+})
+
+  // show page
+app.get('/restaurants/:restaurant_id', (req, res) => {
+  const restaurant = restaurantList.find( restaurant => restaurant.id.toString() === req.params.restaurant_id)
+  res.render('show', { restaurant: restaurant })
 })
 
 // listen on and start the Express server
