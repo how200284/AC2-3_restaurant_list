@@ -8,9 +8,13 @@ const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs( {defaultLayout: 'main'} ))
 app.set('view engine', 'handlebars')
 
+// require restaurant.json
+const restaurantList = require('./restaurant.json')
+
 // set router
+  // homepage
 app.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', { restaurants: restaurantList.results })
 })
 
 // listen on and start the Express server
