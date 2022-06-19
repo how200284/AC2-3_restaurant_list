@@ -27,13 +27,13 @@ app.get('/search', (req, res) => {
     return restaurant.name.toLowerCase().includes(keyword.trim().toLowerCase()) ||
     restaurant.category.includes(keyword.trim())
   })
-  res.render('index', { restaurants: searchResults})
+  res.render('index', { restaurants: searchResults, keyword })
 })
 
   // show page
 app.get('/restaurants/:restaurant_id', (req, res) => {
   const restaurant = restaurantList.find( restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant: restaurant })
+  res.render('show', { restaurant })
 })
 
 // listen on and start the Express server
