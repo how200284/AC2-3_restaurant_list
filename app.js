@@ -14,6 +14,18 @@ app.use(express.static('public'))
 // require restaurant.json
 const restaurantList = require('./restaurant.json').results
 
+// require mongoose & connect to MONGODB
+const mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+const db = mongoose.connection
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
 // set router
   // homepage
 app.get('/', (req, res) => {
