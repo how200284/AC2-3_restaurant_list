@@ -3,6 +3,10 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// require body-parser
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true}))
+
 // require express-handlebars
 const exphbs = require('express-handlebars')
 app.engine('handlebars', exphbs( {defaultLayout: 'main'} ))
@@ -33,22 +37,33 @@ app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then( restaurants => res.render('index', { restaurants }))
-    .catch(err => console.log(err))
+    .catch(err => console.error(err))
 })
 
   // search bar
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const searchResults = restaurantList.filter( restaurant => {
+  const searchResults = Restaurant.filter( restaurant => {
     return restaurant.name.toLowerCase().includes(keyword.trim().toLowerCase()) ||
     restaurant.category.includes(keyword.trim())
   })
   res.render('index', { restaurants: searchResults, keyword })
 })
 
+  // new page
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/restaurants', (req, res) => {
+  Restaurant.create(req.body)
+    .then(() => res.redirect("/"))
+    .catch(err => console.log(err))
+})
+
   // show page
 app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.find( restaurant => restaurant.id.toString() === req.params.restaurant_id)
+  const restaurant = Restaurant.find( restaurant => restaurant.id.toString() === req.params.restaurantId)
   res.render('show', { restaurant })
 })
 
