@@ -11,8 +11,9 @@ app.set('view engine', 'handlebars')
 // set static files
 app.use(express.static('public'))
 
-// require restaurant.json
-const restaurantList = require('./restaurant.json').results
+// // require restaurant.json
+// const restaurantList = require('./restaurant.json').results
+const Restaurant = require('./models/restaurant')
 
 // require mongoose & connect to MONGODB
 const mongoose = require('mongoose')
@@ -26,10 +27,13 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// set router
+// set route
   // homepage
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList })
+  Restaurant.find()
+    .lean()
+    .then( restaurants => res.render('index', { restaurants }))
+    .catch(err => console.log(err))
 })
 
   // search bar
