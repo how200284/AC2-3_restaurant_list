@@ -66,7 +66,35 @@ app.get('/restaurants/:restaurantId', (req, res) => {
   return Restaurant.findById(req.params.restaurantId)
   .lean()
   .then(restaurant => res.render('show', { restaurant }))
-  .catch(err => console.log('err'))
+  .catch(err => console.log(err))
+})
+
+  // edit page
+app.get('/restaurants/:restaurantId/edit', (req, res) => {
+  return Restaurant.findById(req.params.restaurantId)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
+    .catch(err => console.log(err))
+})
+
+app.post('/restaurants/:restaurantId/edit', (req, res) => {
+  const restaurantId = req.params.restaurantId
+  const {name, name_en, category, image, location, phone, google_map, rating, description} = req.body
+  return Restaurant.findById(restaurantId)
+  .then(restaurant => {
+    restaurant.name = name
+    restaurant.name_en = name_en
+    restaurant.category = category
+    restaurant.image = image
+    restaurant.location = location
+    restaurant.phone = phone
+    restaurant.google_map = google_map
+    restaurant.rating = rating
+    restaurant.description = description
+    return restaurant.save()
+  })
+  .then(() => res.redirect(`/restaurants/${restaurantId}`))
+  .catch(err => console.log(err))
 })
 
 // listen on and start the Express server
