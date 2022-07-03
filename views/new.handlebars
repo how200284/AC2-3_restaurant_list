@@ -1,48 +1,56 @@
-<form action="/restaurants" method="POST">
-  <div class="mb-3">
-    <label for="name" class="form-label">Restaurant Name</label>
-    <input name="name" type="text" placeholder="ex: AC 酒吧" class="form-control" id="name" aria-describedby="name" required>
+<!-- ./views/new.handlebars -->
+<div class="container mt-5">
+  <div>
+    <h1>Add New Restaurant!</h1>
   </div>
 
-  <div class="mb-3">
-    <label for="name_en" class="form-label">Restaurant Name in English</label>
-    <input name="name_en" type="text" placeholder="ex: AC Bar" class="form-control" id="name_en" aria-describedby="name_en" required>
-  </div>
+  <form action="/restaurants" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Restaurant Name</label>
+      <input name="name" type="text" placeholder="ex: AC 酒吧" class="form-control" id="name" aria-describedby="name" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="category" class="form-label">Category</label>
-    <input name="category" type="text" placeholder="ex: 酒吧" class="form-control" id="category" aria-describedby="category" required>
-  </div>
+    <div class="mb-3">
+      <label for="name_en" class="form-label">Restaurant Name in English</label>
+      <input name="name_en" type="text" placeholder="ex: AC Bar" class="form-control" id="name_en" aria-describedby="name_en" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="image" class="form-label">Image</label>
-    <input name="image" type="text" class="form-control" id="image" aria-describedby="image" required>
-  </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <input name="category" type="text" placeholder="ex: 酒吧" class="form-control" id="category" aria-describedby="category" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="location" class="form-label">Location</label>
-    <input name="location" type="text" placeholder="ex: 台北市松山區復興北路201號六樓之4" class="form-control" id="location" aria-describedby="location" required>
-  </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image URL</label>
+      <input name="image" type="text" placeholder="https://reurl.cc/55nxLM" class="form-control" id="image" aria-describedby="image" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="phone" class="form-label">Phone number</label>
-    <input name="phone" type="text" placeholder="ex: 02 2546-9766" class="form-control" id="phone" aria-describedby="phone" required>
-  </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Location</label>
+      <input name="location" type="text" placeholder="ex: 台北市松山區復興北路201號六樓之4" class="form-control" id="location" aria-describedby="location" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="google_map" class="form-label">Google Map URL</label>
-    <input name="google_map" type="text" placeholder="ex: https://goo.gl/maps/kcWXjYHhpSfeAFFz8" class="form-control" id="google_map" aria-describedby="google_map" required>
-  </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone number</label>
+      <input name="phone" type="text" placeholder="ex: 02 2546-9766" class="form-control" id="phone" aria-describedby="phone" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="rating" class="form-label">Rating</label>
-    <input name="rating" type="text" placeholder="4.7" class="form-control" id="rating" aria-describedby="rating" required>
-  </div>
+    <div class="mb-3">
+      <label for="google_map" class="form-label">Google Map URL</label>
+      <input name="google_map" type="text" placeholder="ex: https://goo.gl/maps/kcWXjYHhpSfeAFFz8" class="form-control" id="google_map" aria-describedby="google_map" required>
+    </div>
 
-  <div class="mb-3">
-    <label for="description" class="form-label">Description</label>
-    <input name="description" type="text" placeholder="喝酒的所在（Ｘ）" class="form-control" id="description" aria-describedby="description" required>
-  </div>
+    <div class="mb-3">
+      <label for="rating" class="form-label">Rating</label>
+      <input name="rating" type="text" placeholder="4.7" class="form-control" id="rating" aria-describedby="rating" required>
+    </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input name="description" type="text" placeholder="喝酒的所在（Ｘ）" class="form-control" id="description" aria-describedby="description" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+  </form>
+</div>
