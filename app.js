@@ -62,9 +62,11 @@ app.post('/restaurants', (req, res) => {
 })
 
   // show page
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = Restaurant.find( restaurant => restaurant.id.toString() === req.params.restaurantId)
-  res.render('show', { restaurant })
+app.get('/restaurants/:restaurantId', (req, res) => {
+  return Restaurant.findById(req.params.restaurantId)
+  .lean()
+  .then(restaurant => res.render('show', { restaurant }))
+  .catch(err => console.log('err'))
 })
 
 // listen on and start the Express server
