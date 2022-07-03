@@ -97,6 +97,14 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
   .catch(err => console.log(err))
 })
 
+  // delete data
+app.post('/restaurants/:restaurantId/delete', (req, res) => {
+  return Restaurant.findById(req.params.restaurantId)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
+
 // listen on and start the Express server
 app.listen(port, () => {
   console.log(`This express server is running on localhost:${port}`)

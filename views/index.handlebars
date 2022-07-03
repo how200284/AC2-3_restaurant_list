@@ -12,7 +12,7 @@
               <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
             </div>
             <div>
-              <a class="btn btn-info" type="button" href="/restaurants/new" id="add-restaurant">Add Restaurant</a>
+              <a class="btn btn-info ml-1" type="button" href="/restaurants/new" id="add-restaurant">Add Restaurant</a>
             </div>
           </div>
         </form>
@@ -47,6 +47,9 @@
                 </span>
                 <div>
                   <a class="btn btn-secondary mt-1" href="/restaurants/{{this._id}}/edit">Edit</a>
+                <form action="./restaurants/{{this._id}}/delete" method="POST" style="display: inline;">
+                  <button class="btn btn-danger mt-1" type="submit">Delete</button>
+                </form>
                 </div>
               </div>
             </div>
