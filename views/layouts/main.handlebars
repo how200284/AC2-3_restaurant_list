@@ -16,18 +16,23 @@
   <header>
     <!-- navigation -->
     <nav class="navbar navbar-light bg-light">
-      <div class="container">
+      <div class="container d-flex justify-content-between">
         <a class="navbar-brand" href="/">
           <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
             width="30" height="30" class="d-inline-block align-top" alt="Restaurant List">
           Restaurant List
         </a>
+        <a class="btn btn-info ml-1" type="button" href="/restaurants/new" id="add-restaurant">Add Restaurant</a>
       </div>
     </nav>
     <div class="banner"></div>
   </header>
   <!-- partial templates will show here -->
   {{{ body }}}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.js"
+    integrity="sha512-4XXQU43yUun/VeZoXns+KMzYujtGh/OXMeL+N/qEThXq7zTXRJ6HiDGWoMihCRQu+RRwTVvl34GqxJcO9njQdg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>
