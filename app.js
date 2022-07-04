@@ -3,6 +3,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// require routes
+const routes = require('./routes')
+
 // require body-parser
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true}))
@@ -35,82 +38,8 @@ db.once('open', () => {
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
-// set route
-  // homepage
-app.get('/', (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then(restaurants => res.render('index', { restaurants }))
-    .catch(err => console.error(err))
-})
+app.use(routes)
 
-  // search bar
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword?.trim()
-  const regexp = new RegExp(keyword, 'i')
-  const { name, category } = req.query
-  Restaurant.find({
-    $or: [{name: regexp}, {category: regexp}]
-    })
-    .lean()
-    .then(restaurants => res.render('index', {restaurants, keyword}))
-    .catch(err => console.log(err))
-})
-
-  // new page
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
-
-app.post('/restaurants', (req, res) => {
-  Restaurant.create(req.body)
-    .then(() => res.redirect("/"))
-    .catch(err => console.log(err))
-})
-
-  // show page
-app.get('/restaurants/:restaurantId', (req, res) => {
-  return Restaurant.findById(req.params.restaurantId)
-  .lean()
-  .then(restaurant => res.render('show', { restaurant }))
-  .catch(err => console.log(err))
-})
-
-  // edit page
-app.get('/restaurants/:restaurantId/edit', (req, res) => {
-  return Restaurant.findById(req.params.restaurantId)
-    .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
-    .catch(err => console.log(err))
-})
-
-app.put('/restaurants/:restaurantId', (req, res) => {
-  const restaurantId = req.params.restaurantId
-  const {name, name_en, category, image, location, phone, google_map, rating, description} = req.body
-  return Restaurant.findById(restaurantId)
-  .then(restaurant => {
-    restaurant.name = name
-    restaurant.name_en = name_en
-    restaurant.category = category
-    restaurant.image = image
-    restaurant.location = location
-    restaurant.phone = phone
-    restaurant.google_map = google_map
-    restaurant.rating = rating
-    restaurant.description = description
-    return restaurant.save()
-  })
-  .then(() => res.redirect(`/restaurants/${restaurantId}`))
-  .catch(err => console.log(err))
-})
-
-  // delete data
-app.delete('/restaurants/:restaurantId', (req, res) => {
-  return Restaurant.findById(req.params.restaurantId)
-    .then(restaurant => restaurant.remove())
-    .then(() => res.redirect('/'))
-    .catch(err => console.log(err))
-})
 
 // listen on and start the Express server
 app.listen(port, () => {
