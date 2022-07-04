@@ -40,18 +40,21 @@ app.use(methodOverride('_method'))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then( restaurants => res.render('index', { restaurants }))
+    .then(restaurants => res.render('index', { restaurants }))
     .catch(err => console.error(err))
 })
 
   // search bar
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const searchResults = Restaurant.find( restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.trim().toLowerCase()) ||
-    restaurant.category.includes(keyword.trim())
-  })
-  res.render('index', { restaurants: searchResults, keyword })
+  const keyword = req.query.keyword?.trim()
+  const regexp = new RegExp(keyword, 'i')
+  const { name, category } = req.query
+  Restaurant.find({
+    $or: [{name: regexp}, {category: regexp}]
+    })
+    .lean()
+    .then(restaurants => res.render('index', {restaurants, keyword}))
+    .catch(err => console.log(err))
 })
 
   // new page
