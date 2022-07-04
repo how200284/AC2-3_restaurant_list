@@ -31,6 +31,10 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+// require method-override
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
 // set route
   // homepage
 app.get('/', (req, res) => {
@@ -43,7 +47,7 @@ app.get('/', (req, res) => {
   // search bar
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const searchResults = Restaurant.filter( restaurant => {
+  const searchResults = Restaurant.find( restaurant => {
     return restaurant.name.toLowerCase().includes(keyword.trim().toLowerCase()) ||
     restaurant.category.includes(keyword.trim())
   })
@@ -77,7 +81,7 @@ app.get('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-app.post('/restaurants/:restaurantId/edit', (req, res) => {
+app.put('/restaurants/:restaurantId', (req, res) => {
   const restaurantId = req.params.restaurantId
   const {name, name_en, category, image, location, phone, google_map, rating, description} = req.body
   return Restaurant.findById(restaurantId)
@@ -98,7 +102,7 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
 })
 
   // delete data
-app.post('/restaurants/:restaurantId/delete', (req, res) => {
+app.delete('/restaurants/:restaurantId', (req, res) => {
   return Restaurant.findById(req.params.restaurantId)
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
