@@ -10,7 +10,7 @@ require('./config/mongoose')
 const Restaurant = require('./models/restaurant')
 
 const app = express()
-const port = 3000
+const PORT = process.env.PORT || 3000
 app.engine('handlebars', exphbs( {defaultLayout: 'main'} ))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
@@ -19,6 +19,6 @@ app.use(methodOverride('_method'))
 app.use(routes)
 
 // listen on and start the Express server
-app.listen(port, () => {
-  console.log(`This express server is running on localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`This express server is running on localhost:${PORT}`)
 })
