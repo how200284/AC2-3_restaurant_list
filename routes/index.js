@@ -6,12 +6,14 @@ const home = require('./modules/home')
 const search = require('./modules/search')
 const restaurants = require('./modules/restaurants')
 const sort = require('./modules/sort')
+const users = require('./modules/users')
 
 // set routes
 router.use('/', home)
 router.use('/search', search)
 router.use('/restaurants', restaurants)
 router.use('/sort', sort)
+router.use('/users', users)
 
 // export router
 module.exports = router
