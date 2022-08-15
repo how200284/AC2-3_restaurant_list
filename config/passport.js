@@ -8,11 +8,14 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+  passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passReqToCallback: true  // send req to the following callback function
+  }, (req, email, password, done) => { // add req as the first parammter.
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false), { message: 'This email has not registered yet.' }
+          return done(null, false, { message: 'This email has not registered yet.' })
         }
         return bcrypt.compare(password, user.password)
         .then(isMatch => {

@@ -7,12 +7,22 @@ const bcrypt = require('bcryptjs')
 const User = require('../../models/user')
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  // When users fail to login, they will be redirected to '/login', which will 'GET' this page.
+  // Thus we push req.flash('error') here, and send this message to handlebars.
+  const errorMessage = req.flash('error')
+  const errors = []
+
+  if (errorMessage.length) {
+    errors.push({ message: errorMessage })
+  }
+
+  res.render('login', { errors })
 })
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true  // activate connect-flash message on passport.js
 }))
 
 router.get('/register', (req, res) => {
