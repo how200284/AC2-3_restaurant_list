@@ -35,9 +35,11 @@
   <div class="row">
 
     {{#unless restaurants}}
+    {{#if keyword}}
     <div class="mx-auto">
       <h3>There's No Restaurant with keyword: {{keyword}}</h3>
     </div>
+    {{/if}}
     {{/unless}}
 
     <div class="col-md-10 col-12 mx-auto">

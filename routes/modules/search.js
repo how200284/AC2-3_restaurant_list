@@ -9,9 +9,10 @@ const Restaurant = require('../../models/restaurant')
 router.get('/', (req, res) => {
   const keyword = req.query.keyword?.trim()
   const regexp = new RegExp(keyword, 'i')
-  const { name, category } = req.query
+  const userId = req.user._id  // get userId of this user.
+
   Restaurant.find({
-    $or: [{ name: regexp }, { category: regexp }]
+    $or: [{ name: regexp }, { category: regexp }], userId: userId  // add "userId" to filter restaurant data which belongs to this user.
   })
     .lean()
     .then(restaurants => res.render('index', { restaurants, keyword }))
