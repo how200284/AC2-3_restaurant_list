@@ -7,7 +7,8 @@ const Restaurant = require('../../models/restaurant')
 
 // set routes
 router.get('/nameAsc', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({userId})
     .lean()
     .sort({ name: 'asc'})
     .then(restaurants => res.render('index', { restaurants }))
@@ -15,7 +16,8 @@ router.get('/nameAsc', (req, res) => {
 })
 
 router.get('/nameDesc', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .sort({ name: 'desc' })
     .then(restaurants => res.render('index', { restaurants }))
@@ -23,7 +25,8 @@ router.get('/nameDesc', (req, res) => {
 })
 
 router.get('/ratingDesc', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .sort({ rating: 'desc' })
     .then(restaurants => res.render('index', { restaurants }))
@@ -31,7 +34,8 @@ router.get('/ratingDesc', (req, res) => {
 })
 
 router.get('/ratingAsc', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  Restaurant.find({ userId })
     .lean()
     .sort({ rating: 'asc' })
     .then(restaurants => res.render('index', { restaurants }))
